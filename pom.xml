@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>test-functional-clipper-sikuli</groupId>
+	<artifactId>test-functional-clipper-sikuli</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>test-functional-clipper-sikuli</name>
+	
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--Compiler version-->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.14.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- DEPENDENCIAS PARA LOG -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>3.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.relevantcodes</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>2.41.2</version>
+		</dependency>
+
+		<!-- DEPENDENCIAS PARA LOG -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<!-- DEPENDENCIAS SIKULI -->
+		<dependency>
+			<groupId>com.sikulix</groupId>
+			<artifactId>sikulixapi-complete</artifactId>
+			<version>1.1.990</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sikulix</groupId>
+			<artifactId>sikulix</artifactId>
+			<version>1.1.1000</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jruby</groupId>
+					<artifactId>jruby-complete</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>1.3.3</version>
+				<configuration>
+					<cveValidForHours>52</cveValidForHours>
+					<failBuildOnCVSS>10</failBuildOnCVSS>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.3.1</version>
+				<executions>
+					<execution>
+						<id>install-sikuli-api</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<groupId>com.sikulix</groupId>
+							<artifactId>sikulixapi-complete</artifactId>
+							<version>1.1.990</version>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+							<createChecksum>true</createChecksum>
+							<file>${project.basedir}/lib/sikulixapi-complete-1.1.990.jar</file>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install-sikulix</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>clean</phase>
+						<configuration>
+							<groupId>com.sikulix</groupId>
+							<artifactId>sikulix-complete</artifactId>
+							<version>1.1.1000</version>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+							<createChecksum>true</createChecksum>
+							<file>${project.basedir}/lib/sikulix-1.1.1000.jar</file>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
